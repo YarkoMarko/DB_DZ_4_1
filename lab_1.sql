@@ -171,8 +171,15 @@
 -- JOIN Departments ON Departments.department_id = Groups_.department_id
 -- JOIN Faculties ON Faculties.faculty_id = Departments.faculty_id AND Faculties.faculty_name = 'Arts'
 
-SELECT Groups_.group_name AS "Groups", Faculties.faculty_name AS "Faculties"
-FROM Groups_
-JOIN Departments ON Departments.department_id = Groups_.department_id
-JOIN Faculties ON Faculties.faculty_id = Departments.faculty_id AND Groups_.group_year = 3
+-- SELECT Groups_.group_name AS "Groups", Faculties.faculty_name AS "Faculties"
+-- FROM Groups_
+-- JOIN Departments ON Departments.department_id = Groups_.department_id
+-- JOIN Faculties ON Faculties.faculty_id = Departments.faculty_id AND Groups_.group_year = 3
 
+SELECT Teachers.teacher_name || ' ' || Teachers.teacher_surname AS Professors, Subjects.subject_name AS "Subjects", Groups_.group_name AS "Groups"
+FROM Teachers
+JOIN TeachersSubjects ON TeachersSubjects.teacher_id = Teachers.teacher_id
+JOIN Subjects ON Subjects.subject_id = TeachersSubjects.subject_id
+JOIN Lectures ON Lectures.teacher_id = Teachers.teacher_id
+JOIN GroupsLectures ON GroupsLectures.lecture_id = Lectures.lecture_id
+JOIN Groups_ ON Groups_.group_id = GroupsLectures.group_id
